@@ -1,0 +1,5 @@
+proto/proto.bat
+include/*.pb.h
+src/*.pb.h
+client/include/*.ph.h
+client/src/*.pb.h

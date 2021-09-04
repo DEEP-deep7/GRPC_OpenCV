@@ -46,7 +46,7 @@ struct TableStruct_ImageStream_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,12 +55,20 @@ struct TableStruct_ImageStream_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ImageStream_2eproto;
 ::PROTOBUF_NAMESPACE_ID::Metadata descriptor_table_ImageStream_2eproto_metadata_getter(int index);
 namespace CVServer {
+class Chunk;
+struct ChunkDefaultTypeInternal;
+extern ChunkDefaultTypeInternal _Chunk_default_instance_;
 class ImageMessage;
 struct ImageMessageDefaultTypeInternal;
 extern ImageMessageDefaultTypeInternal _ImageMessage_default_instance_;
+class ImageStream;
+struct ImageStreamDefaultTypeInternal;
+extern ImageStreamDefaultTypeInternal _ImageStream_default_instance_;
 }  // namespace CVServer
 PROTOBUF_NAMESPACE_OPEN
+template<> ::CVServer::Chunk* Arena::CreateMaybeMessage<::CVServer::Chunk>(Arena*);
 template<> ::CVServer::ImageMessage* Arena::CreateMaybeMessage<::CVServer::ImageMessage>(Arena*);
+template<> ::CVServer::ImageStream* Arena::CreateMaybeMessage<::CVServer::ImageStream>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace CVServer {
 
@@ -179,36 +187,12 @@ class ImageMessage PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kImageStreamFieldNumber = 2,
     kCommandFieldNumber = 1,
-    kRowFieldNumber = 3,
-    kColumFieldNumber = 4,
-    kStateFieldNumber = 5,
+    kRowFieldNumber = 2,
+    kColumFieldNumber = 3,
+    kTypeFieldNumber = 4,
+    kChannelFieldNumber = 5,
   };
-  // repeated bytes ImageStream = 2;
-  int imagestream_size() const;
-  private:
-  int _internal_imagestream_size() const;
-  public:
-  void clear_imagestream();
-  const std::string& imagestream(int index) const;
-  std::string* mutable_imagestream(int index);
-  void set_imagestream(int index, const std::string& value);
-  void set_imagestream(int index, std::string&& value);
-  void set_imagestream(int index, const char* value);
-  void set_imagestream(int index, const void* value, size_t size);
-  std::string* add_imagestream();
-  void add_imagestream(const std::string& value);
-  void add_imagestream(std::string&& value);
-  void add_imagestream(const char* value);
-  void add_imagestream(const void* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& imagestream() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_imagestream();
-  private:
-  const std::string& _internal_imagestream(int index) const;
-  std::string* _internal_add_imagestream();
-  public:
-
   // string Command = 1;
   void clear_command();
   const std::string& command() const;
@@ -225,31 +209,40 @@ class ImageMessage PROTOBUF_FINAL :
   std::string* _internal_mutable_command();
   public:
 
-  // int64 row = 3;
+  // int32 row = 2;
   void clear_row();
-  ::PROTOBUF_NAMESPACE_ID::int64 row() const;
-  void set_row(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 row() const;
+  void set_row(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_row() const;
-  void _internal_set_row(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_row() const;
+  void _internal_set_row(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int64 colum = 4;
+  // int32 colum = 3;
   void clear_colum();
-  ::PROTOBUF_NAMESPACE_ID::int64 colum() const;
-  void set_colum(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 colum() const;
+  void set_colum(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_colum() const;
-  void _internal_set_colum(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_colum() const;
+  void _internal_set_colum(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int64 State = 5;
-  void clear_state();
-  ::PROTOBUF_NAMESPACE_ID::int64 state() const;
-  void set_state(::PROTOBUF_NAMESPACE_ID::int64 value);
+  // int32 type = 4;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::int32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_state() const;
-  void _internal_set_state(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_type() const;
+  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 channel = 5;
+  void clear_channel();
+  ::PROTOBUF_NAMESPACE_ID::int32 channel() const;
+  void set_channel(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_channel() const;
+  void _internal_set_channel(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:CVServer.ImageMessage)
@@ -259,11 +252,347 @@ class ImageMessage PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> imagestream_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr command_;
-  ::PROTOBUF_NAMESPACE_ID::int64 row_;
-  ::PROTOBUF_NAMESPACE_ID::int64 colum_;
-  ::PROTOBUF_NAMESPACE_ID::int64 state_;
+  ::PROTOBUF_NAMESPACE_ID::int32 row_;
+  ::PROTOBUF_NAMESPACE_ID::int32 colum_;
+  ::PROTOBUF_NAMESPACE_ID::int32 type_;
+  ::PROTOBUF_NAMESPACE_ID::int32 channel_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ImageStream_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Chunk PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CVServer.Chunk) */ {
+ public:
+  inline Chunk() : Chunk(nullptr) {}
+  virtual ~Chunk();
+  explicit constexpr Chunk(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Chunk(const Chunk& from);
+  Chunk(Chunk&& from) noexcept
+    : Chunk() {
+    *this = ::std::move(from);
+  }
+
+  inline Chunk& operator=(const Chunk& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Chunk& operator=(Chunk&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Chunk& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Chunk* internal_default_instance() {
+    return reinterpret_cast<const Chunk*>(
+               &_Chunk_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Chunk& a, Chunk& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Chunk* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Chunk* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Chunk* New() const final {
+    return CreateMaybeMessage<Chunk>(nullptr);
+  }
+
+  Chunk* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Chunk>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Chunk& from);
+  void MergeFrom(const Chunk& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Chunk* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "CVServer.Chunk";
+  }
+  protected:
+  explicit Chunk(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_ImageStream_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPicData0FieldNumber = 1,
+    kPicData1FieldNumber = 2,
+    kPicData2FieldNumber = 3,
+    kPicData3FieldNumber = 4,
+  };
+  // int32 pic_data0 = 1;
+  void clear_pic_data0();
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data0() const;
+  void set_pic_data0(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pic_data0() const;
+  void _internal_set_pic_data0(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 pic_data1 = 2;
+  void clear_pic_data1();
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data1() const;
+  void set_pic_data1(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pic_data1() const;
+  void _internal_set_pic_data1(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 pic_data2 = 3;
+  void clear_pic_data2();
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data2() const;
+  void set_pic_data2(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pic_data2() const;
+  void _internal_set_pic_data2(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 pic_data3 = 4;
+  void clear_pic_data3();
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data3() const;
+  void set_pic_data3(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pic_data3() const;
+  void _internal_set_pic_data3(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:CVServer.Chunk)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data0_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data1_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data2_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pic_data3_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ImageStream_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ImageStream PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CVServer.ImageStream) */ {
+ public:
+  inline ImageStream() : ImageStream(nullptr) {}
+  virtual ~ImageStream();
+  explicit constexpr ImageStream(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ImageStream(const ImageStream& from);
+  ImageStream(ImageStream&& from) noexcept
+    : ImageStream() {
+    *this = ::std::move(from);
+  }
+
+  inline ImageStream& operator=(const ImageStream& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ImageStream& operator=(ImageStream&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ImageStream& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ImageStream* internal_default_instance() {
+    return reinterpret_cast<const ImageStream*>(
+               &_ImageStream_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(ImageStream& a, ImageStream& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ImageStream* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ImageStream* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ImageStream* New() const final {
+    return CreateMaybeMessage<ImageStream>(nullptr);
+  }
+
+  ImageStream* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ImageStream>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ImageStream& from);
+  void MergeFrom(const ImageStream& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ImageStream* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "CVServer.ImageStream";
+  }
+  protected:
+  explicit ImageStream(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_ImageStream_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLineDataFieldNumber = 1,
+    kImgDataFieldNumber = 2,
+  };
+  // repeated .CVServer.Chunk LineData = 1;
+  int linedata_size() const;
+  private:
+  int _internal_linedata_size() const;
+  public:
+  void clear_linedata();
+  ::CVServer::Chunk* mutable_linedata(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CVServer::Chunk >*
+      mutable_linedata();
+  private:
+  const ::CVServer::Chunk& _internal_linedata(int index) const;
+  ::CVServer::Chunk* _internal_add_linedata();
+  public:
+  const ::CVServer::Chunk& linedata(int index) const;
+  ::CVServer::Chunk* add_linedata();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CVServer::Chunk >&
+      linedata() const;
+
+  // .CVServer.ImageMessage ImgData = 2;
+  bool has_imgdata() const;
+  private:
+  bool _internal_has_imgdata() const;
+  public:
+  void clear_imgdata();
+  const ::CVServer::ImageMessage& imgdata() const;
+  ::CVServer::ImageMessage* release_imgdata();
+  ::CVServer::ImageMessage* mutable_imgdata();
+  void set_allocated_imgdata(::CVServer::ImageMessage* imgdata);
+  private:
+  const ::CVServer::ImageMessage& _internal_imgdata() const;
+  ::CVServer::ImageMessage* _internal_mutable_imgdata();
+  public:
+  void unsafe_arena_set_allocated_imgdata(
+      ::CVServer::ImageMessage* imgdata);
+  ::CVServer::ImageMessage* unsafe_arena_release_imgdata();
+
+  // @@protoc_insertion_point(class_scope:CVServer.ImageStream)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CVServer::Chunk > linedata_;
+  ::CVServer::ImageMessage* imgdata_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ImageStream_2eproto;
 };
@@ -339,143 +668,303 @@ inline void ImageMessage::set_allocated_command(std::string* command) {
   // @@protoc_insertion_point(field_set_allocated:CVServer.ImageMessage.Command)
 }
 
-// repeated bytes ImageStream = 2;
-inline int ImageMessage::_internal_imagestream_size() const {
-  return imagestream_.size();
-}
-inline int ImageMessage::imagestream_size() const {
-  return _internal_imagestream_size();
-}
-inline void ImageMessage::clear_imagestream() {
-  imagestream_.Clear();
-}
-inline std::string* ImageMessage::add_imagestream() {
-  // @@protoc_insertion_point(field_add_mutable:CVServer.ImageMessage.ImageStream)
-  return _internal_add_imagestream();
-}
-inline const std::string& ImageMessage::_internal_imagestream(int index) const {
-  return imagestream_.Get(index);
-}
-inline const std::string& ImageMessage::imagestream(int index) const {
-  // @@protoc_insertion_point(field_get:CVServer.ImageMessage.ImageStream)
-  return _internal_imagestream(index);
-}
-inline std::string* ImageMessage::mutable_imagestream(int index) {
-  // @@protoc_insertion_point(field_mutable:CVServer.ImageMessage.ImageStream)
-  return imagestream_.Mutable(index);
-}
-inline void ImageMessage::set_imagestream(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:CVServer.ImageMessage.ImageStream)
-  imagestream_.Mutable(index)->assign(value);
-}
-inline void ImageMessage::set_imagestream(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:CVServer.ImageMessage.ImageStream)
-  imagestream_.Mutable(index)->assign(std::move(value));
-}
-inline void ImageMessage::set_imagestream(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  imagestream_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:CVServer.ImageMessage.ImageStream)
-}
-inline void ImageMessage::set_imagestream(int index, const void* value, size_t size) {
-  imagestream_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:CVServer.ImageMessage.ImageStream)
-}
-inline std::string* ImageMessage::_internal_add_imagestream() {
-  return imagestream_.Add();
-}
-inline void ImageMessage::add_imagestream(const std::string& value) {
-  imagestream_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:CVServer.ImageMessage.ImageStream)
-}
-inline void ImageMessage::add_imagestream(std::string&& value) {
-  imagestream_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:CVServer.ImageMessage.ImageStream)
-}
-inline void ImageMessage::add_imagestream(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  imagestream_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:CVServer.ImageMessage.ImageStream)
-}
-inline void ImageMessage::add_imagestream(const void* value, size_t size) {
-  imagestream_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:CVServer.ImageMessage.ImageStream)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-ImageMessage::imagestream() const {
-  // @@protoc_insertion_point(field_list:CVServer.ImageMessage.ImageStream)
-  return imagestream_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-ImageMessage::mutable_imagestream() {
-  // @@protoc_insertion_point(field_mutable_list:CVServer.ImageMessage.ImageStream)
-  return &imagestream_;
-}
-
-// int64 row = 3;
+// int32 row = 2;
 inline void ImageMessage::clear_row() {
-  row_ = PROTOBUF_LONGLONG(0);
+  row_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 ImageMessage::_internal_row() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::_internal_row() const {
   return row_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 ImageMessage::row() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::row() const {
   // @@protoc_insertion_point(field_get:CVServer.ImageMessage.row)
   return _internal_row();
 }
-inline void ImageMessage::_internal_set_row(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void ImageMessage::_internal_set_row(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   row_ = value;
 }
-inline void ImageMessage::set_row(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void ImageMessage::set_row(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_row(value);
   // @@protoc_insertion_point(field_set:CVServer.ImageMessage.row)
 }
 
-// int64 colum = 4;
+// int32 colum = 3;
 inline void ImageMessage::clear_colum() {
-  colum_ = PROTOBUF_LONGLONG(0);
+  colum_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 ImageMessage::_internal_colum() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::_internal_colum() const {
   return colum_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 ImageMessage::colum() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::colum() const {
   // @@protoc_insertion_point(field_get:CVServer.ImageMessage.colum)
   return _internal_colum();
 }
-inline void ImageMessage::_internal_set_colum(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void ImageMessage::_internal_set_colum(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   colum_ = value;
 }
-inline void ImageMessage::set_colum(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void ImageMessage::set_colum(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_colum(value);
   // @@protoc_insertion_point(field_set:CVServer.ImageMessage.colum)
 }
 
-// int64 State = 5;
-inline void ImageMessage::clear_state() {
-  state_ = PROTOBUF_LONGLONG(0);
+// int32 type = 4;
+inline void ImageMessage::clear_type() {
+  type_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 ImageMessage::_internal_state() const {
-  return state_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::_internal_type() const {
+  return type_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 ImageMessage::state() const {
-  // @@protoc_insertion_point(field_get:CVServer.ImageMessage.State)
-  return _internal_state();
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::type() const {
+  // @@protoc_insertion_point(field_get:CVServer.ImageMessage.type)
+  return _internal_type();
 }
-inline void ImageMessage::_internal_set_state(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void ImageMessage::_internal_set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  state_ = value;
+  type_ = value;
 }
-inline void ImageMessage::set_state(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_state(value);
-  // @@protoc_insertion_point(field_set:CVServer.ImageMessage.State)
+inline void ImageMessage::set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:CVServer.ImageMessage.type)
+}
+
+// int32 channel = 5;
+inline void ImageMessage::clear_channel() {
+  channel_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::_internal_channel() const {
+  return channel_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::channel() const {
+  // @@protoc_insertion_point(field_get:CVServer.ImageMessage.channel)
+  return _internal_channel();
+}
+inline void ImageMessage::_internal_set_channel(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  channel_ = value;
+}
+inline void ImageMessage::set_channel(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_channel(value);
+  // @@protoc_insertion_point(field_set:CVServer.ImageMessage.channel)
+}
+
+// -------------------------------------------------------------------
+
+// Chunk
+
+// int32 pic_data0 = 1;
+inline void Chunk::clear_pic_data0() {
+  pic_data0_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::_internal_pic_data0() const {
+  return pic_data0_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::pic_data0() const {
+  // @@protoc_insertion_point(field_get:CVServer.Chunk.pic_data0)
+  return _internal_pic_data0();
+}
+inline void Chunk::_internal_set_pic_data0(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pic_data0_ = value;
+}
+inline void Chunk::set_pic_data0(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pic_data0(value);
+  // @@protoc_insertion_point(field_set:CVServer.Chunk.pic_data0)
+}
+
+// int32 pic_data1 = 2;
+inline void Chunk::clear_pic_data1() {
+  pic_data1_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::_internal_pic_data1() const {
+  return pic_data1_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::pic_data1() const {
+  // @@protoc_insertion_point(field_get:CVServer.Chunk.pic_data1)
+  return _internal_pic_data1();
+}
+inline void Chunk::_internal_set_pic_data1(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pic_data1_ = value;
+}
+inline void Chunk::set_pic_data1(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pic_data1(value);
+  // @@protoc_insertion_point(field_set:CVServer.Chunk.pic_data1)
+}
+
+// int32 pic_data2 = 3;
+inline void Chunk::clear_pic_data2() {
+  pic_data2_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::_internal_pic_data2() const {
+  return pic_data2_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::pic_data2() const {
+  // @@protoc_insertion_point(field_get:CVServer.Chunk.pic_data2)
+  return _internal_pic_data2();
+}
+inline void Chunk::_internal_set_pic_data2(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pic_data2_ = value;
+}
+inline void Chunk::set_pic_data2(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pic_data2(value);
+  // @@protoc_insertion_point(field_set:CVServer.Chunk.pic_data2)
+}
+
+// int32 pic_data3 = 4;
+inline void Chunk::clear_pic_data3() {
+  pic_data3_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::_internal_pic_data3() const {
+  return pic_data3_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Chunk::pic_data3() const {
+  // @@protoc_insertion_point(field_get:CVServer.Chunk.pic_data3)
+  return _internal_pic_data3();
+}
+inline void Chunk::_internal_set_pic_data3(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pic_data3_ = value;
+}
+inline void Chunk::set_pic_data3(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pic_data3(value);
+  // @@protoc_insertion_point(field_set:CVServer.Chunk.pic_data3)
+}
+
+// -------------------------------------------------------------------
+
+// ImageStream
+
+// repeated .CVServer.Chunk LineData = 1;
+inline int ImageStream::_internal_linedata_size() const {
+  return linedata_.size();
+}
+inline int ImageStream::linedata_size() const {
+  return _internal_linedata_size();
+}
+inline void ImageStream::clear_linedata() {
+  linedata_.Clear();
+}
+inline ::CVServer::Chunk* ImageStream::mutable_linedata(int index) {
+  // @@protoc_insertion_point(field_mutable:CVServer.ImageStream.LineData)
+  return linedata_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CVServer::Chunk >*
+ImageStream::mutable_linedata() {
+  // @@protoc_insertion_point(field_mutable_list:CVServer.ImageStream.LineData)
+  return &linedata_;
+}
+inline const ::CVServer::Chunk& ImageStream::_internal_linedata(int index) const {
+  return linedata_.Get(index);
+}
+inline const ::CVServer::Chunk& ImageStream::linedata(int index) const {
+  // @@protoc_insertion_point(field_get:CVServer.ImageStream.LineData)
+  return _internal_linedata(index);
+}
+inline ::CVServer::Chunk* ImageStream::_internal_add_linedata() {
+  return linedata_.Add();
+}
+inline ::CVServer::Chunk* ImageStream::add_linedata() {
+  // @@protoc_insertion_point(field_add:CVServer.ImageStream.LineData)
+  return _internal_add_linedata();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CVServer::Chunk >&
+ImageStream::linedata() const {
+  // @@protoc_insertion_point(field_list:CVServer.ImageStream.LineData)
+  return linedata_;
+}
+
+// .CVServer.ImageMessage ImgData = 2;
+inline bool ImageStream::_internal_has_imgdata() const {
+  return this != internal_default_instance() && imgdata_ != nullptr;
+}
+inline bool ImageStream::has_imgdata() const {
+  return _internal_has_imgdata();
+}
+inline void ImageStream::clear_imgdata() {
+  if (GetArena() == nullptr && imgdata_ != nullptr) {
+    delete imgdata_;
+  }
+  imgdata_ = nullptr;
+}
+inline const ::CVServer::ImageMessage& ImageStream::_internal_imgdata() const {
+  const ::CVServer::ImageMessage* p = imgdata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::CVServer::ImageMessage&>(
+      ::CVServer::_ImageMessage_default_instance_);
+}
+inline const ::CVServer::ImageMessage& ImageStream::imgdata() const {
+  // @@protoc_insertion_point(field_get:CVServer.ImageStream.ImgData)
+  return _internal_imgdata();
+}
+inline void ImageStream::unsafe_arena_set_allocated_imgdata(
+    ::CVServer::ImageMessage* imgdata) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(imgdata_);
+  }
+  imgdata_ = imgdata;
+  if (imgdata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:CVServer.ImageStream.ImgData)
+}
+inline ::CVServer::ImageMessage* ImageStream::release_imgdata() {
+  
+  ::CVServer::ImageMessage* temp = imgdata_;
+  imgdata_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::CVServer::ImageMessage* ImageStream::unsafe_arena_release_imgdata() {
+  // @@protoc_insertion_point(field_release:CVServer.ImageStream.ImgData)
+  
+  ::CVServer::ImageMessage* temp = imgdata_;
+  imgdata_ = nullptr;
+  return temp;
+}
+inline ::CVServer::ImageMessage* ImageStream::_internal_mutable_imgdata() {
+  
+  if (imgdata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CVServer::ImageMessage>(GetArena());
+    imgdata_ = p;
+  }
+  return imgdata_;
+}
+inline ::CVServer::ImageMessage* ImageStream::mutable_imgdata() {
+  // @@protoc_insertion_point(field_mutable:CVServer.ImageStream.ImgData)
+  return _internal_mutable_imgdata();
+}
+inline void ImageStream::set_allocated_imgdata(::CVServer::ImageMessage* imgdata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete imgdata_;
+  }
+  if (imgdata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(imgdata);
+    if (message_arena != submessage_arena) {
+      imgdata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, imgdata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  imgdata_ = imgdata;
+  // @@protoc_insertion_point(field_set_allocated:CVServer.ImageStream.ImgData)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

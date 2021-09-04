@@ -19,11 +19,11 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace CVServer {
 constexpr ImageMessage::ImageMessage(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : imagestream_()
-  , command_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , row_(PROTOBUF_LONGLONG(0))
-  , colum_(PROTOBUF_LONGLONG(0))
-  , state_(PROTOBUF_LONGLONG(0)){}
+  : command_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , row_(0)
+  , colum_(0)
+  , type_(0)
+  , channel_(0){}
 struct ImageMessageDefaultTypeInternal {
   constexpr ImageMessageDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -33,8 +33,36 @@ struct ImageMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ImageMessageDefaultTypeInternal _ImageMessage_default_instance_;
+constexpr Chunk::Chunk(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : pic_data0_(0)
+  , pic_data1_(0)
+  , pic_data2_(0)
+  , pic_data3_(0){}
+struct ChunkDefaultTypeInternal {
+  constexpr ChunkDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ChunkDefaultTypeInternal() {}
+  union {
+    Chunk _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ChunkDefaultTypeInternal _Chunk_default_instance_;
+constexpr ImageStream::ImageStream(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : linedata_()
+  , imgdata_(nullptr){}
+struct ImageStreamDefaultTypeInternal {
+  constexpr ImageStreamDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ImageStreamDefaultTypeInternal() {}
+  union {
+    ImageStream _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ImageStreamDefaultTypeInternal _ImageStream_default_instance_;
 }  // namespace CVServer
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ImageStream_2eproto[1];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ImageStream_2eproto[3];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_ImageStream_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_ImageStream_2eproto = nullptr;
 
@@ -45,32 +73,58 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ImageStream_2eproto::offsets[]
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::CVServer::ImageMessage, command_),
-  PROTOBUF_FIELD_OFFSET(::CVServer::ImageMessage, imagestream_),
   PROTOBUF_FIELD_OFFSET(::CVServer::ImageMessage, row_),
   PROTOBUF_FIELD_OFFSET(::CVServer::ImageMessage, colum_),
-  PROTOBUF_FIELD_OFFSET(::CVServer::ImageMessage, state_),
+  PROTOBUF_FIELD_OFFSET(::CVServer::ImageMessage, type_),
+  PROTOBUF_FIELD_OFFSET(::CVServer::ImageMessage, channel_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CVServer::Chunk, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CVServer::Chunk, pic_data0_),
+  PROTOBUF_FIELD_OFFSET(::CVServer::Chunk, pic_data1_),
+  PROTOBUF_FIELD_OFFSET(::CVServer::Chunk, pic_data2_),
+  PROTOBUF_FIELD_OFFSET(::CVServer::Chunk, pic_data3_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CVServer::ImageStream, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CVServer::ImageStream, linedata_),
+  PROTOBUF_FIELD_OFFSET(::CVServer::ImageStream, imgdata_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::CVServer::ImageMessage)},
+  { 10, -1, sizeof(::CVServer::Chunk)},
+  { 19, -1, sizeof(::CVServer::ImageStream)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CVServer::_ImageMessage_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CVServer::_Chunk_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CVServer::_ImageStream_default_instance_),
 };
 
 const char descriptor_table_protodef_ImageStream_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021ImageStream.proto\022\010CVServer\"_\n\014ImageMe"
-  "ssage\022\017\n\007Command\030\001 \001(\t\022\023\n\013ImageStream\030\002 "
-  "\003(\014\022\013\n\003row\030\003 \001(\003\022\r\n\005colum\030\004 \001(\003\022\r\n\005State"
-  "\030\005 \001(\0032Q\n\010CVServer\022E\n\rCVImageStream\022\026.CV"
-  "Server.ImageMessage\032\026.CVServer.ImageMess"
-  "age\"\000(\0010\001B*\n\025io.grpc.examples.gateB\tGate"
-  "ProtoP\001\242\002\003RTGb\006proto3"
+  "\n\021ImageStream.proto\022\010CVServer\"Z\n\014ImageMe"
+  "ssage\022\017\n\007Command\030\001 \001(\t\022\013\n\003row\030\002 \001(\005\022\r\n\005c"
+  "olum\030\003 \001(\005\022\014\n\004type\030\004 \001(\005\022\017\n\007channel\030\005 \001("
+  "\005\"S\n\005Chunk\022\021\n\tpic_data0\030\001 \001(\005\022\021\n\tpic_dat"
+  "a1\030\002 \001(\005\022\021\n\tpic_data2\030\003 \001(\005\022\021\n\tpic_data3"
+  "\030\004 \001(\005\"Y\n\013ImageStream\022!\n\010LineData\030\001 \003(\0132"
+  "\017.CVServer.Chunk\022\'\n\007ImgData\030\002 \001(\0132\026.CVSe"
+  "rver.ImageMessage2\231\001\n\010CVServer\022E\n\rCVImag"
+  "eStream\022\026.CVServer.ImageMessage\032\026.CVServ"
+  "er.ImageMessage\"\000(\0010\001\022F\n\020CVMatImageStrea"
+  "m\022\025.CVServer.ImageStream\032\025.CVServer.Imag"
+  "eStream\"\000(\0010\001B*\n\025io.grpc.examples.gateB\t"
+  "GateProtoP\001\242\002\003RTGb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ImageStream_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ImageStream_2eproto = {
-  false, false, 261, descriptor_table_protodef_ImageStream_2eproto, "ImageStream.proto", 
-  &descriptor_table_ImageStream_2eproto_once, nullptr, 0, 1,
+  false, false, 505, descriptor_table_protodef_ImageStream_2eproto, "ImageStream.proto", 
+  &descriptor_table_ImageStream_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ImageStream_2eproto::offsets,
   file_level_metadata_ImageStream_2eproto, file_level_enum_descriptors_ImageStream_2eproto, file_level_service_descriptors_ImageStream_2eproto,
 };
@@ -91,15 +145,13 @@ class ImageMessage::_Internal {
 };
 
 ImageMessage::ImageMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  imagestream_(arena) {
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:CVServer.ImageMessage)
 }
 ImageMessage::ImageMessage(const ImageMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      imagestream_(from.imagestream_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_command().empty()) {
@@ -107,8 +159,8 @@ ImageMessage::ImageMessage(const ImageMessage& from)
       GetArena());
   }
   ::memcpy(&row_, &from.row_,
-    static_cast<size_t>(reinterpret_cast<char*>(&state_) -
-    reinterpret_cast<char*>(&row_)) + sizeof(state_));
+    static_cast<size_t>(reinterpret_cast<char*>(&channel_) -
+    reinterpret_cast<char*>(&row_)) + sizeof(channel_));
   // @@protoc_insertion_point(copy_constructor:CVServer.ImageMessage)
 }
 
@@ -116,8 +168,8 @@ void ImageMessage::SharedCtor() {
 command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&row_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&state_) -
-    reinterpret_cast<char*>(&row_)) + sizeof(state_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&channel_) -
+    reinterpret_cast<char*>(&row_)) + sizeof(channel_));
 }
 
 ImageMessage::~ImageMessage() {
@@ -147,11 +199,10 @@ void ImageMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  imagestream_.Clear();
   command_.ClearToEmpty();
   ::memset(&row_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&state_) -
-      reinterpret_cast<char*>(&row_)) + sizeof(state_));
+      reinterpret_cast<char*>(&channel_) -
+      reinterpret_cast<char*>(&row_)) + sizeof(channel_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -171,37 +222,31 @@ const char* ImageMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated bytes ImageStream = 2;
+      // int32 row = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_imagestream();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // int64 row = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           row_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int64 colum = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+      // int32 colum = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           colum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int64 State = 5;
+      // int32 type = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 channel = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          state_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          channel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -243,28 +288,28 @@ failure:
         1, this->_internal_command(), target);
   }
 
-  // repeated bytes ImageStream = 2;
-  for (int i = 0, n = this->_internal_imagestream_size(); i < n; i++) {
-    const auto& s = this->_internal_imagestream(i);
-    target = stream->WriteBytes(2, s, target);
-  }
-
-  // int64 row = 3;
+  // int32 row = 2;
   if (this->row() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_row(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_row(), target);
   }
 
-  // int64 colum = 4;
+  // int32 colum = 3;
   if (this->colum() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_colum(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_colum(), target);
   }
 
-  // int64 State = 5;
-  if (this->state() != 0) {
+  // int32 type = 4;
+  if (this->type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(5, this->_internal_state(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_type(), target);
+  }
+
+  // int32 channel = 5;
+  if (this->channel() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_channel(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -283,14 +328,6 @@ size_t ImageMessage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated bytes ImageStream = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(imagestream_.size());
-  for (int i = 0, n = imagestream_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      imagestream_.Get(i));
-  }
-
   // string Command = 1;
   if (this->command().size() > 0) {
     total_size += 1 +
@@ -298,25 +335,32 @@ size_t ImageMessage::ByteSizeLong() const {
         this->_internal_command());
   }
 
-  // int64 row = 3;
+  // int32 row = 2;
   if (this->row() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_row());
   }
 
-  // int64 colum = 4;
+  // int32 colum = 3;
   if (this->colum() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_colum());
   }
 
-  // int64 State = 5;
-  if (this->state() != 0) {
+  // int32 type = 4;
+  if (this->type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_state());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_type());
+  }
+
+  // int32 channel = 5;
+  if (this->channel() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_channel());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -350,7 +394,6 @@ void ImageMessage::MergeFrom(const ImageMessage& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  imagestream_.MergeFrom(from.imagestream_);
   if (from.command().size() > 0) {
     _internal_set_command(from._internal_command());
   }
@@ -360,8 +403,11 @@ void ImageMessage::MergeFrom(const ImageMessage& from) {
   if (from.colum() != 0) {
     _internal_set_colum(from._internal_colum());
   }
-  if (from.state() != 0) {
-    _internal_set_state(from._internal_state());
+  if (from.type() != 0) {
+    _internal_set_type(from._internal_type());
+  }
+  if (from.channel() != 0) {
+    _internal_set_channel(from._internal_channel());
   }
 }
 
@@ -386,11 +432,10 @@ bool ImageMessage::IsInitialized() const {
 void ImageMessage::InternalSwap(ImageMessage* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  imagestream_.InternalSwap(&other->imagestream_);
   command_.Swap(&other->command_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ImageMessage, state_)
-      + sizeof(ImageMessage::state_)
+      PROTOBUF_FIELD_OFFSET(ImageMessage, channel_)
+      + sizeof(ImageMessage::channel_)
       - PROTOBUF_FIELD_OFFSET(ImageMessage, row_)>(
           reinterpret_cast<char*>(&row_),
           reinterpret_cast<char*>(&other->row_));
@@ -401,11 +446,523 @@ void ImageMessage::InternalSwap(ImageMessage* other) {
 }
 
 
+// ===================================================================
+
+class Chunk::_Internal {
+ public:
+};
+
+Chunk::Chunk(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:CVServer.Chunk)
+}
+Chunk::Chunk(const Chunk& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&pic_data0_, &from.pic_data0_,
+    static_cast<size_t>(reinterpret_cast<char*>(&pic_data3_) -
+    reinterpret_cast<char*>(&pic_data0_)) + sizeof(pic_data3_));
+  // @@protoc_insertion_point(copy_constructor:CVServer.Chunk)
+}
+
+void Chunk::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&pic_data0_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&pic_data3_) -
+    reinterpret_cast<char*>(&pic_data0_)) + sizeof(pic_data3_));
+}
+
+Chunk::~Chunk() {
+  // @@protoc_insertion_point(destructor:CVServer.Chunk)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void Chunk::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+}
+
+void Chunk::ArenaDtor(void* object) {
+  Chunk* _this = reinterpret_cast< Chunk* >(object);
+  (void)_this;
+}
+void Chunk::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Chunk::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Chunk::Clear() {
+// @@protoc_insertion_point(message_clear_start:CVServer.Chunk)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&pic_data0_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&pic_data3_) -
+      reinterpret_cast<char*>(&pic_data0_)) + sizeof(pic_data3_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Chunk::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // int32 pic_data0 = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          pic_data0_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 pic_data1 = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          pic_data1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 pic_data2 = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          pic_data2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 pic_data3 = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          pic_data3_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* Chunk::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CVServer.Chunk)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 pic_data0 = 1;
+  if (this->pic_data0() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_pic_data0(), target);
+  }
+
+  // int32 pic_data1 = 2;
+  if (this->pic_data1() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_pic_data1(), target);
+  }
+
+  // int32 pic_data2 = 3;
+  if (this->pic_data2() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_pic_data2(), target);
+  }
+
+  // int32 pic_data3 = 4;
+  if (this->pic_data3() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_pic_data3(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CVServer.Chunk)
+  return target;
+}
+
+size_t Chunk::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:CVServer.Chunk)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 pic_data0 = 1;
+  if (this->pic_data0() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pic_data0());
+  }
+
+  // int32 pic_data1 = 2;
+  if (this->pic_data1() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pic_data1());
+  }
+
+  // int32 pic_data2 = 3;
+  if (this->pic_data2() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pic_data2());
+  }
+
+  // int32 pic_data3 = 4;
+  if (this->pic_data3() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pic_data3());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Chunk::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:CVServer.Chunk)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Chunk* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Chunk>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:CVServer.Chunk)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:CVServer.Chunk)
+    MergeFrom(*source);
+  }
+}
+
+void Chunk::MergeFrom(const Chunk& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:CVServer.Chunk)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.pic_data0() != 0) {
+    _internal_set_pic_data0(from._internal_pic_data0());
+  }
+  if (from.pic_data1() != 0) {
+    _internal_set_pic_data1(from._internal_pic_data1());
+  }
+  if (from.pic_data2() != 0) {
+    _internal_set_pic_data2(from._internal_pic_data2());
+  }
+  if (from.pic_data3() != 0) {
+    _internal_set_pic_data3(from._internal_pic_data3());
+  }
+}
+
+void Chunk::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:CVServer.Chunk)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Chunk::CopyFrom(const Chunk& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:CVServer.Chunk)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Chunk::IsInitialized() const {
+  return true;
+}
+
+void Chunk::InternalSwap(Chunk* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Chunk, pic_data3_)
+      + sizeof(Chunk::pic_data3_)
+      - PROTOBUF_FIELD_OFFSET(Chunk, pic_data0_)>(
+          reinterpret_cast<char*>(&pic_data0_),
+          reinterpret_cast<char*>(&other->pic_data0_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Chunk::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class ImageStream::_Internal {
+ public:
+  static const ::CVServer::ImageMessage& imgdata(const ImageStream* msg);
+};
+
+const ::CVServer::ImageMessage&
+ImageStream::_Internal::imgdata(const ImageStream* msg) {
+  return *msg->imgdata_;
+}
+ImageStream::ImageStream(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  linedata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:CVServer.ImageStream)
+}
+ImageStream::ImageStream(const ImageStream& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      linedata_(from.linedata_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_imgdata()) {
+    imgdata_ = new ::CVServer::ImageMessage(*from.imgdata_);
+  } else {
+    imgdata_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:CVServer.ImageStream)
+}
+
+void ImageStream::SharedCtor() {
+imgdata_ = nullptr;
+}
+
+ImageStream::~ImageStream() {
+  // @@protoc_insertion_point(destructor:CVServer.ImageStream)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void ImageStream::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  if (this != internal_default_instance()) delete imgdata_;
+}
+
+void ImageStream::ArenaDtor(void* object) {
+  ImageStream* _this = reinterpret_cast< ImageStream* >(object);
+  (void)_this;
+}
+void ImageStream::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ImageStream::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ImageStream::Clear() {
+// @@protoc_insertion_point(message_clear_start:CVServer.ImageStream)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  linedata_.Clear();
+  if (GetArena() == nullptr && imgdata_ != nullptr) {
+    delete imgdata_;
+  }
+  imgdata_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ImageStream::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // repeated .CVServer.Chunk LineData = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_linedata(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // .CVServer.ImageMessage ImgData = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_imgdata(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ImageStream::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CVServer.ImageStream)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .CVServer.Chunk LineData = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_linedata_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_linedata(i), target, stream);
+  }
+
+  // .CVServer.ImageMessage ImgData = 2;
+  if (this->has_imgdata()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::imgdata(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CVServer.ImageStream)
+  return target;
+}
+
+size_t ImageStream::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:CVServer.ImageStream)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .CVServer.Chunk LineData = 1;
+  total_size += 1UL * this->_internal_linedata_size();
+  for (const auto& msg : this->linedata_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // .CVServer.ImageMessage ImgData = 2;
+  if (this->has_imgdata()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *imgdata_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ImageStream::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:CVServer.ImageStream)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ImageStream* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ImageStream>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:CVServer.ImageStream)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:CVServer.ImageStream)
+    MergeFrom(*source);
+  }
+}
+
+void ImageStream::MergeFrom(const ImageStream& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:CVServer.ImageStream)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  linedata_.MergeFrom(from.linedata_);
+  if (from.has_imgdata()) {
+    _internal_mutable_imgdata()->::CVServer::ImageMessage::MergeFrom(from._internal_imgdata());
+  }
+}
+
+void ImageStream::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:CVServer.ImageStream)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ImageStream::CopyFrom(const ImageStream& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:CVServer.ImageStream)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ImageStream::IsInitialized() const {
+  return true;
+}
+
+void ImageStream::InternalSwap(ImageStream* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  linedata_.InternalSwap(&other->linedata_);
+  swap(imgdata_, other->imgdata_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ImageStream::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace CVServer
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::CVServer::ImageMessage* Arena::CreateMaybeMessage< ::CVServer::ImageMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::CVServer::ImageMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::CVServer::Chunk* Arena::CreateMaybeMessage< ::CVServer::Chunk >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::CVServer::Chunk >(arena);
+}
+template<> PROTOBUF_NOINLINE ::CVServer::ImageStream* Arena::CreateMaybeMessage< ::CVServer::ImageStream >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::CVServer::ImageStream >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

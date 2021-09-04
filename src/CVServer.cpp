@@ -74,7 +74,7 @@ grpc::Status CVImageServer::CVImageStream(::grpc::ServerContext* context,
 	CVServer::ImageMessage Package;
 	Package.set_command("picture");
 
-	Package.set_state(tempsize);
+	//Package.set_state(tempsize);
 	//char mat[] = { reinterpret_cast<char>(src.data) };
 	Package.set_row(src.rows);
 	Package.set_colum(src.cols);
@@ -101,7 +101,7 @@ grpc::Status CVImageServer::CVImageStream(::grpc::ServerContext* context,
 	}
 	//memcpy(mmat, src.data, tempsize);
 	std::cout << "set Package over" << std::endl;
-	Package.set_imagestream(0, mmat);
+	//Package.set_imagestream(0, mmat);
 	stream->Write(Package);
 	std::cout << "Write over" << std::endl;
 	delete[] mmat;
@@ -114,5 +114,77 @@ grpc::Status CVImageServer::CVImageStream(::grpc::ServerContext* context,
 	{
 		std::cout << "error:empty command" << std::endl;
 	}
+	return grpc::Status::OK;
+}
+
+grpc::Status CVImageServer::CVMatImageStream(::grpc::ServerContext * context, 
+	::grpc::ServerReaderWriter<::CVServer::ImageStream, ::CVServer::ImageStream>* stream)
+{
+	std::cout << "start server" << std::endl;
+	//CVServer::ImageMessage tempMessage;
+	CVServer::ImageStream tempStream;
+	Mat src = CVImageProcess();
+	CVServer::Chunk tempChunk;
+	
+	stream->Read(&tempStream);
+	std::cout << "command" << tempStream.imgdata().command();
+	Mat src = CVImageProcess();
+
+	//将图像数据读出并存储
+	
+	std::vector<CVServer::ImageStream> ImageData;
+	//首行数据
+	CVServer::ImageStream* firstLine = new CVServer::ImageStream();
+	firstLine->imgdata.set_command("firstLine");
+	firstLine->imgdata.set_channel(src.channels());
+	firstLine->imgdata.set_row(src.rows);
+	firstLine->imgdata.set_colum(src.cols);
+	firstLine->imgdata.set_type(src.type());
+	ImageData.push_back(*firstLine);
+	delete firstLine;
+
+	//所有图像数据
+	 
+	//CVServer::ImageStream LineData;//声明行像素
+	for (int i = 0; i < src.rows; i++)
+	{
+		CVServer::ImageStream LineData;
+		
+		for (int j = 0; j < src.cols; j++)
+		{
+			CVServer::Chunk* mat = LineData.add_linedata(); //声明单个像素
+			uchar *pb = src.ptr<uchar>(i, j);
+			//单通道、三通道、四通道
+			switch (src.channels())
+			{
+			case 1:
+				mat->set_pic_data0(int(pb[0]));
+				break;
+			case 3:
+				mat->set_pic_data0(int(pb[0]));
+				mat->set_pic_data1(int(pb[1]));
+				mat->set_pic_data2(int(pb[2]));
+				break;
+			case 4:
+				mat->set_pic_data0(int(pb[0]));
+				mat->set_pic_data1(int(pb[1]));
+				mat->set_pic_data2(int(pb[2]));
+				mat->set_pic_data3(int(pb[3]));
+				break;
+			default:
+				std::cerr << "channel error:" << src.channels() << std::endl;
+				break;
+			}
+
+		}
+		ImageData.push_back(LineData);
+	}
+
+	//发送图像
+	system_clock::time_point start_time = system_clock::now();
+	
+
+	system_clock::time_point over_time = system_clock::now();
+
 	return grpc::Status::OK;
 }

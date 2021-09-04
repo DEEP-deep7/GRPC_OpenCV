@@ -54,22 +54,40 @@ service CVServer {
   //初步设想：图片传输、大文件传输
   rpc CVImageStream(stream ImageMessage) returns (stream ImageMessage) {}
   
+  //图像流传输
+  rpc CVMatImageStream(stream ImageStream) returns (stream ImageStream) {}
 }
 
 
-//图像传输流
+//图像传信息，包含命令和图像信息
 message ImageMessage {
   //命令
   string Command = 1;
 
-  //二进制数据
-  repeated bytes ImageStream= 2;
+  //二进制数据 这样定义流数据不对，废弃不用
+  //repeated bytes ImageStream= 2;
  
  //行数
- int row = 3;
+ int32 row = 2;
  //列数
- int colum = 4;  
+ int32 colum = 3;  
+ //类型
+ int32 type = 4;
 
   //状态码
-  int64 State = 5;
+  int32 channel = 5;
+}
+
+//图像传输流，单个像素的信息，三通道或四通道
+message Chunk{
+  int32 pic_data0 = 1;
+  int32 pic_data1 = 2;
+  int32 pic_data2 = 3;
+  int32 pic_data3 = 4;
+}
+
+//真正的图像流数据，也就是一行数据
+message ImageStream{
+  repeated Chunk LineData = 1;
+  ImageMessage ImgData = 2;
 }

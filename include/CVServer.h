@@ -27,6 +27,10 @@ public:
 	grpc::Status CVImageStream(::grpc::ServerContext* context,
 		::grpc::ServerReaderWriter< ::CVServer::ImageMessage, ::CVServer::ImageMessage>* stream)  override;
 
+	//注意参数与客户端的区别
+	grpc::Status CVMatImageStream(::grpc::ServerContext* context, 
+		::grpc::ServerReaderWriter< ::CVServer::ImageStream, ::CVServer::ImageStream>* stream)  override;
+
 private:
 
 };

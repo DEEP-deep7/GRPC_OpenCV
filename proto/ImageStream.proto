@@ -54,7 +54,7 @@ service CVServer {
   //初步设想：图片传输、大文件传输
   rpc CVImageStream(stream ImageMessage) returns (stream ImageMessage) {}
   
-  //图像流传输
+  //图像流传输 客户端要调用这个从服务端获取数据，服务端重写这个发送数据
   rpc CVMatImageStream(stream ImageStream) returns (stream ImageStream) {}
 }
 

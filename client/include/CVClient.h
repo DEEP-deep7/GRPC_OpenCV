@@ -29,7 +29,11 @@ public:
 
 	void HandleImageStream();
 
+	void GetImgageStream();
+
 	void CVHandle(std::string data , int row ,int clos);
+
+	void CVHandle(cv::Mat image);
 
 private:
 	std::unique_ptr<CVServer::CVServer::Stub> m_stub;

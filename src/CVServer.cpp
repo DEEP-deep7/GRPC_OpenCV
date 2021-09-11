@@ -127,19 +127,20 @@ grpc::Status CVImageServer::CVMatImageStream(::grpc::ServerContext * context,
 	CVServer::Chunk tempChunk;
 	
 	stream->Read(&tempStream);
-	std::cout << "command" << tempStream.imgdata().command();
-	Mat src = CVImageProcess();
+	std::cout << "command:" << tempStream.imgdata().command();
 
 	//将图像数据读出并存储
 	
 	std::vector<CVServer::ImageStream> ImageData;
 	//首行数据
 	CVServer::ImageStream* firstLine = new CVServer::ImageStream();
-	firstLine->imgdata.set_command("firstLine");
-	firstLine->imgdata.set_channel(src.channels());
-	firstLine->imgdata.set_row(src.rows);
-	firstLine->imgdata.set_colum(src.cols);
-	firstLine->imgdata.set_type(src.type());
+	CVServer::ImageMessage imgdata;
+	imgdata.set_channel(src.channels());
+	imgdata.set_row(src.rows);
+	imgdata.set_colum(src.cols);
+	imgdata.set_type(src.type());
+	firstLine->set_allocated_imgdata(&imgdata);
+
 	ImageData.push_back(*firstLine);
 	delete firstLine;
 
@@ -180,10 +181,13 @@ grpc::Status CVImageServer::CVMatImageStream(::grpc::ServerContext * context,
 		ImageData.push_back(LineData);
 	}
 
-	//发送图像
+	//逐行发送图像
 	system_clock::time_point start_time = system_clock::now();
 	
-
+	for (int i = 0; i < ImageData.size(); i++)
+	{
+		stream->Write(ImageData[i]);
+	}
 	system_clock::time_point over_time = system_clock::now();
 
 	return grpc::Status::OK;
